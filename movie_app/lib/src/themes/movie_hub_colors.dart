@@ -10,6 +10,7 @@ class MovieHubColors {
   static const Color secondaryPurple = Color(0xFF540BA1);
   static const Color darkRed = Color(0xFFAF1F1A);
   static const Color graniteGray = Color(0xFF666666);
+  static const Color darkCharcoal = Color(0xFF333333);
 
   const MovieHubColors();
 }

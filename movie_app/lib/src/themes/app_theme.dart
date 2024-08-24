@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/src/themes/movie_app_colors.dart';
+import 'package:movie_app/src/themes/movie_hub_colors.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
