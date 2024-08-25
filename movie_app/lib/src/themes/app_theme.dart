@@ -6,6 +6,10 @@ class AppTheme {
     primaryColor: MovieHubColors.primaryPurple,
     scaffoldBackgroundColor: MovieHubColors.cultured,
     brightness: Brightness.light,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: MovieHubColors.secondaryPurple,
+      elevation: 20,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: MovieHubColors.primaryPurple,
