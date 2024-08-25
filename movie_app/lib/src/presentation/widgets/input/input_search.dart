@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/src/themes/movie_hub_colors.dart';
 import 'package:movie_app/src/themes/themes.dart';
 
-class SearchInput extends StatefulWidget {
+class InputSearch extends StatefulWidget {
   final Function(String)? onQueryChanged;
   final TextEditingController? controller;
-  const SearchInput({
+  const InputSearch({
     super.key,
     this.onQueryChanged,
     this.controller,
   });
 
   @override
-  State<SearchInput> createState() => _SearchInputState();
+  State<InputSearch> createState() => _InputSearchState();
 }
 
-class _SearchInputState extends State<SearchInput> {
+class _InputSearchState extends State<InputSearch> {
   void _onQueryChanged(String query) {
     setState(() {
       widget.onQueryChanged?.call(query);

@@ -18,6 +18,7 @@ class MovieListPage extends StatefulWidget {
 
 class _MovieListPageState extends State<MovieListPage> {
   late final MovieCubit _cubit;
+  List<MovieEntity> _movieList = <MovieEntity>[];
 
   @override
   void initState() {
@@ -56,9 +57,17 @@ class _MovieListPageState extends State<MovieListPage> {
         child: Column(
           children: [
             const VSpace(16),
-            const Padding(
-              padding: EdgeInsets.all(2.0),
-              child: SearchInput(),
+            SearchBar(
+              cubit: _cubit,
+              updateMovieList: (changedList) {
+                setState(() {
+                  _movieList = changedList;
+                });
+              },
+              movieList: _movieList,
+              padding: const EdgeInsets.all(
+                2,
+              ),
             ),
             BlocBuilder<MovieCubit, MovieState>(
               bloc: _cubit,
@@ -132,6 +141,44 @@ class _MovieListPageState extends State<MovieListPage> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  final MovieCubit cubit;
+  final List<MovieEntity> movieList;
+  final Function(List<MovieEntity>) updateMovieList;
+  final EdgeInsets padding;
+
+  const SearchBar({
+    super.key,
+    required this.cubit,
+    required this.movieList,
+    required this.updateMovieList,
+    required this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<MovieCubit, MovieState>(
+      bloc: cubit,
+      listener: (context, state) {
+        if (state is MovieLoaded && movieList.isEmpty) {
+          updateMovieList(state.movieList);
+        }
+        if (state is MovieListChanged) {
+          updateMovieList(state.movieList);
+        }
+      },
+      child: Padding(
+        padding: padding,
+        child: InputSearch(
+          onQueryChanged: (value) {
+            cubit.filter(movieList, value);
+          },
+        ),
+      ),
     );
   }
 }

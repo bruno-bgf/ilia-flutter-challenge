@@ -20,4 +20,17 @@ class MovieCubit extends Cubit<MovieState> {
       movieList: movieList,
     ));
   }
+
+  void filter(
+    List<MovieEntity> movieList,
+    String query,
+  ) {
+    emit(MovieLoading());
+
+    final filteredList = movieUseCase.filterList(movieList, query);
+
+    emit(MovieListChanged(movieList: movieList));
+
+    emit(MovieLoaded(movieList: filteredList));
+  }
 }

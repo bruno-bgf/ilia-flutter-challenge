@@ -36,9 +36,11 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                 "https://image.tmdb.org/t/p/original${widget.movie.backdropPath ?? ''}",
               ),
             ),
-            _MovieDetailsContent(
-              onTap: widget.onTap,
-              movie: widget.movie,
+            Expanded(
+              child: _MovieDetailsContent(
+                onTap: widget.onTap,
+                movie: widget.movie,
+              ),
             ),
           ],
         ),

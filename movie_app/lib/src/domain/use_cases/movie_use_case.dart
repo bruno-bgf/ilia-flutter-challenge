@@ -15,4 +15,21 @@ class MovieUseCase {
       throw e.message;
     }
   }
+
+  List<MovieEntity> filterList(
+    List<MovieEntity> movieList,
+    String query,
+  ) {
+    List<MovieEntity> filter = <MovieEntity>[];
+
+    filter.addAll(movieList);
+
+    filter.retainWhere(
+      (element) => element.title!.toLowerCase().contains(
+            query.toLowerCase(),
+          ),
+    );
+
+    return filter;
+  }
 }
