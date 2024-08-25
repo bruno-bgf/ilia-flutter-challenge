@@ -122,7 +122,9 @@ class _MovieListPageState extends State<MovieListPage> {
               onTap: () async {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const MovieDetailsPage(),
+                    builder: (BuildContext context) => MovieDetailsPage(
+                      movie: movies[index],
+                    ),
                   ),
                 );
               },
