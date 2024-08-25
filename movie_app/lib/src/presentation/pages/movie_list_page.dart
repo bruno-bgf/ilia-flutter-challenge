@@ -140,6 +140,7 @@ class _MovieListPageState extends State<MovieListPage> {
             ),
           ),
         ),
+        const VSpace(16),
       ],
     );
   }

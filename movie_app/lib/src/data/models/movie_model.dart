@@ -10,23 +10,6 @@ class MovieModel extends MovieEntity {
     super.releaseDate,
     super.voteAverage,
   });
-  // const MovieModel({
-  //   int? id,
-  //   String? title,
-  //   String? overview,
-  //   String? backdropPath,
-  //   String? posterPath,
-  //   String? releaseDate,
-  //   double? voteAverage,
-  // }) : super(
-  //         id: id,
-  //         title: title,
-  //         overview: overview,
-  //         backdropPath: backdropPath,
-  //         releaseDate: releaseDate,
-  //         voteAverage: voteAverage,
-  //         posterPath: posterPath,
-  //       );
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         id: json['id'],

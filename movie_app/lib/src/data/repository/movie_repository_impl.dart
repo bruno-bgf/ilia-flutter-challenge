@@ -12,7 +12,7 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<List<MovieEntity>> getMovieList() async {
     try {
-      return await movieRemoteDataSource.getMovieListList();
+      return await movieRemoteDataSource.getMovieList();
     } on DioExceptions catch (e) {
       throw e.message;
     }

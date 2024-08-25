@@ -3,14 +3,14 @@ import 'package:movie_app/src/data/data.dart';
 import 'package:movie_app/src/di/configuration.dart';
 
 abstract class IMovieRemoteDataSource {
-  Future<List<MovieModel>> getMovieListList();
+  Future<List<MovieModel>> getMovieList();
 }
 
 class MovieRemoteDataSource implements IMovieRemoteDataSource {
   final DioClient dioClient = locator.get<DioClient>();
 
   @override
-  Future<List<MovieModel>> getMovieListList() async {
+  Future<List<MovieModel>> getMovieList() async {
     final apiKey = dotenv.env['apiKey'] ?? '';
 
     final query = await dioClient.get(
