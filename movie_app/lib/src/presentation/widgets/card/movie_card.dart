@@ -13,7 +13,6 @@ class MovieCard extends StatelessWidget {
   final ImageProvider imageProvider;
   final Color color;
   final Widget? title;
-  final Widget? description;
   final void Function()? onTap;
 
   const MovieCard({
@@ -26,7 +25,6 @@ class MovieCard extends StatelessWidget {
     required this.imageProvider,
     this.color = MovieHubColors.white,
     this.title,
-    this.description,
     required this.onTap,
   });
 
@@ -70,7 +68,6 @@ class MovieCard extends StatelessWidget {
             MovieCardContent(
               contentPadding: contentPadding,
               title: title,
-              description: description,
             ),
           ],
         ),

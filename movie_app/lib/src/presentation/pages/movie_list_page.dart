@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:movie_app/src/domain/domain.dart';
 import 'package:movie_app/src/presentation/pages/movie_details_page.dart';
+import 'package:movie_app/src/presentation/stores/stores.dart';
 import 'package:movie_app/src/presentation/widgets/widgets.dart';
 import 'package:movie_app/src/themes/themes.dart';
-//import 'package:get_it/get_it.dart';
 
 class MovieListPage extends StatefulWidget {
   const MovieListPage({
@@ -15,19 +17,30 @@ class MovieListPage extends StatefulWidget {
 }
 
 class _MovieListPageState extends State<MovieListPage> {
+  late final MovieCubit _cubit;
+
   @override
   void initState() {
+    _cubit = GetIt.I.get();
+    _cubit.init();
+
     super.initState();
   }
 
-  void showCustomerEmailExistSnackbar() {
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  List<Map<String, dynamic>> toMap(List<MovieEntity> movies) {
+    List<Map<String, String>> list;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Current Customer Email already exist.'),
-      ),
-    );
+    list = movies.map((movie) {
+      return {
+        "name": movie.title ?? '',
+      };
+    }).toList();
+
+    return list;
+  }
+
+  List<MovieEntity> getMovieList(List<MovieEntity> movieList) {
+    return movieList.toList();
   }
 
   @override
@@ -47,19 +60,40 @@ class _MovieListPageState extends State<MovieListPage> {
               padding: EdgeInsets.all(2.0),
               child: SearchInput(),
             ),
-            const VSpace(16),
-            _buildGridView(),
+            BlocBuilder<MovieCubit, MovieState>(
+              bloc: _cubit,
+              builder: (context, state) {
+                if (state is MovieLoaded) {
+                  List<MovieEntity> movies = getMovieList(
+                    state.movieList,
+                  );
+
+                  return _buildGridView(movies);
+                }
+                return const Padding(
+                  padding: EdgeInsets.only(top: 64.0),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: MovieHubColors.secondaryPurple,
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  Column _buildGridView() {
+  Column _buildGridView(
+    List<MovieEntity> movies,
+  ) {
     return Column(
       children: [
+        const VSpace(16),
         GridView.builder(
-          itemCount: 4,
+          itemCount: movies.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           padding: EdgeInsets.zero,
@@ -74,19 +108,16 @@ class _MovieListPageState extends State<MovieListPage> {
               right: 20.0,
             ),
             child: MovieCard(
-              height: 200,
+              height: 170,
               width: 160,
-              heightImage: 160,
-              imageProvider: const AssetImage('assets/images/mando.jpg'),
-              title: const Text(
-                'The Mandalorian',
+              heightImage: 180,
+              imageProvider: NetworkImage(
+                "https://image.tmdb.org/t/p/original${movies[index].posterPath ?? ''}",
+              ),
+              title: Text(
+                movies[index].title ?? '',
                 style: MovieHubTextStyles.kTitleStrong,
                 overflow: TextOverflow.ellipsis,
-              ),
-              description: const Text(
-                'Action/Adventure',
-                overflow: TextOverflow.ellipsis,
-                style: MovieHubTextStyles.kSubtitle,
               ),
               onTap: () async {
                 await Navigator.of(context).push(

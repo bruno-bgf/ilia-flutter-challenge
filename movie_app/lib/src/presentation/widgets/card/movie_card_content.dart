@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/src/presentation/widgets/spacer/vspace.dart';
 
 class MovieCardContent extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final Widget? title;
-  final Widget? description;
   final Widget? footer;
 
   const MovieCardContent({
     super.key,
     this.contentPadding,
     this.title,
-    this.description,
     this.footer,
   });
 
@@ -29,7 +26,7 @@ class MovieCardContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (title != null || description != null)
+          if (title != null)
             Padding(
               padding: const EdgeInsets.only(
                 top: 8.0,
@@ -38,8 +35,6 @@ class MovieCardContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (title != null) title!,
-                  if (title != null && description != null) const VSpace(2),
-                  if (description != null) description!,
                 ],
               ),
             ),
