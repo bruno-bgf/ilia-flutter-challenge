@@ -1,2 +1,2 @@
 export 'movie_model.dart';
-export 'video_model.dart';
+export 'trailer_model.dart';

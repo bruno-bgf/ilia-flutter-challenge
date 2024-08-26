@@ -5,5 +5,5 @@ class Endpoints {
   static const Duration receiveTimeout = Duration(milliseconds: 30000);
   static const Duration connectionTimeout = Duration(milliseconds: 30000);
   static const String nowPlaying = '/movie/now_playing';
-  static const String videos = 'videos';
+  static const String videos = '/movie/videos';
 }
